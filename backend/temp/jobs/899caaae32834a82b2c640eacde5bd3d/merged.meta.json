@@ -1,0 +1,27 @@
+{
+  "total_pages": 27,
+  "total_bookmarks": 0,
+  "sources": [
+    {
+      "file": "125eb8a8e36445cca550e471c699ffe0.pdf",
+      "pages": 1,
+      "bookmarks": 0
+    },
+    {
+      "file": "59253c279adb4211a1498e7527f1b370.pdf",
+      "pages": 1,
+      "bookmarks": 0
+    },
+    {
+      "file": "68b251c36127496385c6964a883bf78c.pdf",
+      "pages": 25,
+      "bookmarks": 0
+    }
+  ],
+  "order": [
+    0,
+    1,
+    2
+  ],
+  "output_file": "merged.pdf"
+}

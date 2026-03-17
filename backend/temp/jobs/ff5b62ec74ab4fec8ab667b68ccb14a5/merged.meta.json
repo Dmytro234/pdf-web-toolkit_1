@@ -1,0 +1,33 @@
+{
+  "total_pages": 102,
+  "total_bookmarks": 0,
+  "sources": [
+    {
+      "file": "0fbc59bc58a74ec781ed41f927ae0733.pdf",
+      "pages": 69,
+      "bookmarks": 0
+    },
+    {
+      "file": "77007bc5038741e5817883606669492f.pdf",
+      "pages": 31,
+      "bookmarks": 0
+    },
+    {
+      "file": "c65573ce9280446a8c7a90311f870d85.pdf",
+      "pages": 1,
+      "bookmarks": 0
+    },
+    {
+      "file": "f72f578b7d644433b4cc45a4cd2de9ca.pdf",
+      "pages": 1,
+      "bookmarks": 0
+    }
+  ],
+  "order": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "output_file": "merged.pdf"
+}

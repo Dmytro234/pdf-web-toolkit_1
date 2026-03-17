@@ -1,0 +1,74 @@
+{
+  "0a002ba9d07440b4b63137705de1b4c6": {
+    "id": "0a002ba9d07440b4b63137705de1b4c6",
+    "original_name": "part_1.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\bc0f35da91d442d0a878be6ce6e1777b\\files\\0a002ba9d07440b4b63137705de1b4c6.pdf",
+    "size": 4637083,
+    "page_count": 1,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-17T07:47:06.974294+00:00"
+  },
+  "696186767ef54e24953fc96a967cfa43": {
+    "id": "696186767ef54e24953fc96a967cfa43",
+    "original_name": "compressed_9280a57fe0724e05b4d8d35326dc600e.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\bc0f35da91d442d0a878be6ce6e1777b\\files\\696186767ef54e24953fc96a967cfa43.pdf",
+    "size": 2559845,
+    "page_count": 69,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-17T07:47:07.017698+00:00"
+  },
+  "19e351e799ec4af99f0ad2ce6bf8211a": {
+    "id": "19e351e799ec4af99f0ad2ce6bf8211a",
+    "original_name": "merged_5927dc6ff069422285bc697b79448ead.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\bc0f35da91d442d0a878be6ce6e1777b\\files\\19e351e799ec4af99f0ad2ce6bf8211a.pdf",
+    "size": 521914,
+    "page_count": 31,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-17T07:47:07.047436+00:00"
+  },
+  "8f3c29b9ebb347ad87f7684c3a395380": {
+    "id": "8f3c29b9ebb347ad87f7684c3a395380",
+    "original_name": "1768831091838.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\bc0f35da91d442d0a878be6ce6e1777b\\files\\8f3c29b9ebb347ad87f7684c3a395380.pdf",
+    "size": 42532,
+    "page_count": 1,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-17T07:47:07.079539+00:00"
+  },
+  "32fcd4ab877f4018b0b0dbe83c57c8e6": {
+    "id": "32fcd4ab877f4018b0b0dbe83c57c8e6",
+    "original_name": "2565972_extract_25203.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\bc0f35da91d442d0a878be6ce6e1777b\\files\\32fcd4ab877f4018b0b0dbe83c57c8e6.pdf",
+    "size": 294830,
+    "page_count": 1,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-17T07:47:07.116864+00:00"
+  },
+  "5df37209b672427d92f4db9d29da098a": {
+    "id": "5df37209b672427d92f4db9d29da098a",
+    "original_name": "Kobra AF.1, AF+1_ Инструкция + AI Чат & PDF _ Manualzz.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\bc0f35da91d442d0a878be6ce6e1777b\\files\\5df37209b672427d92f4db9d29da098a.pdf",
+    "size": 5883730,
+    "page_count": 25,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-17T07:47:07.163990+00:00"
+  },
+  "3e41df1fe0354a4193363a2e8ac100e3": {
+    "id": "3e41df1fe0354a4193363a2e8ac100e3",
+    "original_name": "11399608_Балкон_3_7_2025-12-14_0.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\bc0f35da91d442d0a878be6ce6e1777b\\files\\3e41df1fe0354a4193363a2e8ac100e3.pdf",
+    "size": 586309,
+    "page_count": 1,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-17T07:47:07.196864+00:00"
+  },
+  "f1f3a463932149cbb5bdf48b98844194": {
+    "id": "f1f3a463932149cbb5bdf48b98844194",
+    "original_name": "11399608_Балкон_3_8_2025-12-14_1.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\bc0f35da91d442d0a878be6ce6e1777b\\files\\f1f3a463932149cbb5bdf48b98844194.pdf",
+    "size": 586424,
+    "page_count": 1,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-17T07:47:07.236717+00:00"
+  }
+}

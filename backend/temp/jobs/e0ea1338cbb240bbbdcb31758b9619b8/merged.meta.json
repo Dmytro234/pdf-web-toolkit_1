@@ -1,0 +1,45 @@
+{
+  "total_pages": 31,
+  "total_bookmarks": 0,
+  "sources": [
+    {
+      "file": "2c921f9fbfa54714b3093e902d7ffc27.pdf",
+      "pages": 1,
+      "bookmarks": 0
+    },
+    {
+      "file": "c5d2299ccbb748639ef463ae2f1b486e.pdf",
+      "pages": 1,
+      "bookmarks": 0
+    },
+    {
+      "file": "c5d75327c5c64e83a380b8457ebcb6aa.pdf",
+      "pages": 25,
+      "bookmarks": 0
+    },
+    {
+      "file": "5b97ae336047493ebda9809cfb5199ba.pdf",
+      "pages": 1,
+      "bookmarks": 0
+    },
+    {
+      "file": "992fb07f5a9e4c2c9bdf978927ffb95f.pdf",
+      "pages": 1,
+      "bookmarks": 0
+    },
+    {
+      "file": "4cc40c1d44504ae78e387cbb458d2dcf.pdf",
+      "pages": 2,
+      "bookmarks": 0
+    }
+  ],
+  "order": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "output_file": "merged.pdf"
+}

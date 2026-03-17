@@ -1,0 +1,29 @@
+{
+  "62812e6ecfe74fea9169b1b38c47ff57": {
+    "id": "62812e6ecfe74fea9169b1b38c47ff57",
+    "original_name": "11399608_Балкон_3_7_2025-12-14_0.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\63dffa35bbde42688b8edf8146eeb133\\files\\62812e6ecfe74fea9169b1b38c47ff57.pdf",
+    "size": 586309,
+    "page_count": 1,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-16T13:15:20.011881+00:00"
+  },
+  "8e82b3f9107444f6bfbbdefe54f2529a": {
+    "id": "8e82b3f9107444f6bfbbdefe54f2529a",
+    "original_name": "11399608_Балкон_3_8_2025-12-14_1.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\63dffa35bbde42688b8edf8146eeb133\\files\\8e82b3f9107444f6bfbbdefe54f2529a.pdf",
+    "size": 586424,
+    "page_count": 1,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-16T13:15:20.036305+00:00"
+  },
+  "f713488fc8ac48b096b4d05e41cda6eb": {
+    "id": "f713488fc8ac48b096b4d05e41cda6eb",
+    "original_name": "doc-2 (1).pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\63dffa35bbde42688b8edf8146eeb133\\files\\f713488fc8ac48b096b4d05e41cda6eb.pdf",
+    "size": 814153,
+    "page_count": 2,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-16T13:15:20.073213+00:00"
+  }
+}

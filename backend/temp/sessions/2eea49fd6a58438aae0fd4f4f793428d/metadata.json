@@ -1,0 +1,56 @@
+{
+  "0fbc59bc58a74ec781ed41f927ae0733": {
+    "id": "0fbc59bc58a74ec781ed41f927ae0733",
+    "original_name": "compressed_9280a57fe0724e05b4d8d35326dc600e.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\2eea49fd6a58438aae0fd4f4f793428d\\files\\0fbc59bc58a74ec781ed41f927ae0733.pdf",
+    "size": 2559845,
+    "page_count": 69,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-12T13:25:12.580945+00:00"
+  },
+  "77007bc5038741e5817883606669492f": {
+    "id": "77007bc5038741e5817883606669492f",
+    "original_name": "merged_5927dc6ff069422285bc697b79448ead.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\2eea49fd6a58438aae0fd4f4f793428d\\files\\77007bc5038741e5817883606669492f.pdf",
+    "size": 521914,
+    "page_count": 31,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-12T13:25:12.627967+00:00"
+  },
+  "c65573ce9280446a8c7a90311f870d85": {
+    "id": "c65573ce9280446a8c7a90311f870d85",
+    "original_name": "1768831091838.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\2eea49fd6a58438aae0fd4f4f793428d\\files\\c65573ce9280446a8c7a90311f870d85.pdf",
+    "size": 42532,
+    "page_count": 1,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-12T13:25:12.659023+00:00"
+  },
+  "f72f578b7d644433b4cc45a4cd2de9ca": {
+    "id": "f72f578b7d644433b4cc45a4cd2de9ca",
+    "original_name": "2565972_extract_25203.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\2eea49fd6a58438aae0fd4f4f793428d\\files\\f72f578b7d644433b4cc45a4cd2de9ca.pdf",
+    "size": 294830,
+    "page_count": 1,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-12T13:25:12.686073+00:00"
+  },
+  "aa14bd6b75a24a19b3d0310a6997ab5a": {
+    "id": "aa14bd6b75a24a19b3d0310a6997ab5a",
+    "original_name": "Kobra AF.1, AF+1_ Инструкция + AI Чат & PDF _ Manualzz.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\2eea49fd6a58438aae0fd4f4f793428d\\files\\aa14bd6b75a24a19b3d0310a6997ab5a.pdf",
+    "size": 5883730,
+    "page_count": 25,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-12T13:26:00.011597+00:00"
+  },
+  "1129c81f12624b769495b9b004e9c3a8": {
+    "id": "1129c81f12624b769495b9b004e9c3a8",
+    "original_name": "1768831091838.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\2eea49fd6a58438aae0fd4f4f793428d\\files\\1129c81f12624b769495b9b004e9c3a8.pdf",
+    "size": 42532,
+    "page_count": 1,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-12T14:19:29.614136+00:00"
+  }
+}

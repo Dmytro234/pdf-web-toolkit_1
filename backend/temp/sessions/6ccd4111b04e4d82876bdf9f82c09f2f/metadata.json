@@ -1,0 +1,29 @@
+{
+  "81dccfb38ad349358c422f8fc2562195": {
+    "id": "81dccfb38ad349358c422f8fc2562195",
+    "original_name": "1768831091838.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\6ccd4111b04e4d82876bdf9f82c09f2f\\files\\81dccfb38ad349358c422f8fc2562195.pdf",
+    "size": 42532,
+    "page_count": 1,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-17T07:56:51.104277+00:00"
+  },
+  "6e428f92519040d3ad87de21aedb0a74": {
+    "id": "6e428f92519040d3ad87de21aedb0a74",
+    "original_name": "2565972_extract_25203.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\6ccd4111b04e4d82876bdf9f82c09f2f\\files\\6e428f92519040d3ad87de21aedb0a74.pdf",
+    "size": 294830,
+    "page_count": 1,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-17T07:56:51.136418+00:00"
+  },
+  "49fa069917e64e02b72fb9665742a5c3": {
+    "id": "49fa069917e64e02b72fb9665742a5c3",
+    "original_name": "Kobra AF.1, AF+1_ Инструкция + AI Чат & PDF _ Manualzz.pdf",
+    "path": "D:\\pdf-web-toolkit\\backend\\temp\\sessions\\6ccd4111b04e4d82876bdf9f82c09f2f\\files\\49fa069917e64e02b72fb9665742a5c3.pdf",
+    "size": 5883730,
+    "page_count": 25,
+    "mime_type": "application/pdf",
+    "uploaded_at": "2026-03-17T07:56:51.172011+00:00"
+  }
+}
