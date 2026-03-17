@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import asdict, dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -65,7 +65,7 @@ class SessionManager:
             size=int(metadata["size"]),
             page_count=int(metadata["page_count"]) if metadata.get("page_count") is not None else None,
             mime_type=str(metadata["mime_type"]),
-            uploaded_at=str(metadata.get("uploaded_at") or datetime.now(timezone.utc).isoformat()),
+            uploaded_at=str(metadata.get("uploaded_at") or datetime.now(UTC).isoformat()),
         )
         stored[file_id] = asdict(record)
         self._write_metadata(session_id, stored)

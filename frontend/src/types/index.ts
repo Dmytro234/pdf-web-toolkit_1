@@ -33,9 +33,6 @@ export interface JobStatus {
   error?: ApiError;
   startedAtIso?: string;
   finishedAtIso?: string;
-  compressedSize?: number;
-  originalSize?: number;
-  reductionPercent?: number;
 }
 
 export interface PageInfo {
@@ -57,7 +54,7 @@ export interface MergeOptions {
   outputName?: string;
 }
 
-export type SplitMode = "byPages" | "byRanges" | "size" | "each_page";
+export type SplitMode = "byPages" | "byRanges";
 
 export interface SplitOptions {
   fileId: ID;
@@ -82,7 +79,7 @@ export interface EditOperation {
 
 export interface CompressOptions {
   fileId: ID;
-  quality: "low" | "medium" | "high" | "extreme";
+  quality: "low" | "medium" | "high";
   outputName?: string;
 }
 

@@ -12,12 +12,22 @@ import { useToolStore } from "@/store/useToolStore";
 import { formatBytes } from "@/utils/formatBytes";
 
 type CompressionLevel = "low" | "medium" | "high" | "extreme";
+type CompressQuality = "low" | "medium" | "high";
+
 const levels: Array<{ value: CompressionLevel; title: string; description: string }> = [
   { value: "low", title: "Low", description: "Швидке стиснення без агресивної втрати якості." },
   { value: "medium", title: "Medium", description: "Баланс між якістю та розміром файла." },
   { value: "high", title: "High", description: "Сильніше стиснення для веб і пересилання." },
   { value: "extreme", title: "Extreme", description: "Максимальне зменшення розміру документа." }
 ];
+
+function mapCompressionLevelToQuality(level: CompressionLevel): CompressQuality {
+  if (level === "extreme") {
+    return "high";
+  }
+
+  return level;
+}
 
 function getImageQuality(level: CompressionLevel): number {
   if (level === "low") {
@@ -35,6 +45,22 @@ function getImageQuality(level: CompressionLevel): number {
   return 40;
 }
 
+function getPreviewRatio(level: CompressionLevel): number {
+  if (level === "low") {
+    return 0.8;
+  }
+
+  if (level === "medium") {
+    return 0.6;
+  }
+
+  if (level === "high") {
+    return 0.45;
+  }
+
+  return 0.35;
+}
+
 export default function CompressTool() {
   const files = useToolStore((state) => state.uploadedFiles);
   const addFile = useToolStore((state) => state.addFile);
@@ -48,6 +74,7 @@ export default function CompressTool() {
   const [level, setLevel] = useState<CompressionLevel>("medium");
   const [optimizeImages, setOptimizeImages] = useState(true);
   const [removeMetadata, setRemoveMetadata] = useState(false);
+  const [compressedSizePreview, setCompressedSizePreview] = useState<number | null>(null);
 
   const file = files[0];
 
@@ -68,6 +95,7 @@ export default function CompressTool() {
         addFile(uploadedFile);
       });
 
+      setCompressedSizePreview(null);
       toast.success("PDF завантажено");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Upload failed");
@@ -82,6 +110,7 @@ export default function CompressTool() {
     try {
       await deleteFileRequest(file.id);
       removeFile(file.id);
+      setCompressedSizePreview(null);
       toast.success("Файл видалено");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Delete failed");
@@ -94,20 +123,28 @@ export default function CompressTool() {
       return;
     }
 
+    const previewRatio = getPreviewRatio(level);
+    setCompressedSizePreview(Math.max(Math.round(file.sizeBytes * previewRatio), 1));
+
     try {
       await execute({
         fileId: file.id,
-        quality: level,
+        quality: mapCompressionLevelToQuality(level),
         optimizeImages,
         imageQuality: getImageQuality(level),
         removeMetadata
       });
 
+      toast.success("Стиснення завершено");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Compression failed");
     }
   };
 
+  const reductionPercent =
+    file && compressedSizePreview
+      ? Math.max(0, Math.round((1 - compressedSizePreview / file.sizeBytes) * 100))
+      : null;
 
   return (
     <div className="space-y-5">
@@ -177,7 +214,7 @@ export default function CompressTool() {
             />
           </label>
 
-          {jobStatus?.state === "success" && typeof jobStatus?.compressedSize === "number" && file ? (
+          {compressedSizePreview && file ? (
             <div className="rounded-2xl border border-green-200 bg-green-50 p-5 transition-all duration-200">
               <div className="flex flex-col gap-3 text-center sm:flex-row sm:items-center sm:justify-center sm:text-left">
                 <div className="rounded-xl bg-white px-4 py-3 shadow-sm">
@@ -187,11 +224,11 @@ export default function CompressTool() {
                 <div className="text-xl font-bold text-green-700">→</div>
 
                 <div className="rounded-xl bg-white px-4 py-3 shadow-sm">
-                  Після: <span className="font-semibold">{formatBytes(jobStatus.compressedSize)}</span>
+                  Після: <span className="font-semibold">{formatBytes(compressedSizePreview)}</span>
                 </div>
 
                 <div className="rounded-xl bg-green-600 px-4 py-3 text-white shadow-sm">
-                  -{jobStatus.reductionPercent ?? 0}%
+                  -{reductionPercent}%
                 </div>
               </div>
             </div>

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import shutil
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import structlog
@@ -24,7 +24,7 @@ class CleanupManager:
         """
         Delete expired session directories based on last modified time.
         """
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         threshold = now - timedelta(hours=ttl_hours)
 
         deleted_sessions = 0
@@ -39,7 +39,7 @@ class CleanupManager:
                 continue
 
             try:
-                modified_at = datetime.fromtimestamp(session_dir.stat().st_mtime, tz=timezone.utc)
+                modified_at = datetime.fromtimestamp(session_dir.stat().st_mtime, tz=UTC)
                 if modified_at >= threshold:
                     continue
 

@@ -5,7 +5,7 @@ import threading
 import uuid
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -31,45 +31,6 @@ thumbnail_executor = ThreadPoolExecutor(max_workers=4)
 jobs_lock = threading.Lock()
 jobs_registry: dict[str, dict[str, Any]] = {}
 
-# Backward-compatible aliases used by route modules.
-_JOBS_LOCK = jobs_lock
-_JOBS = jobs_registry
-
-
-def _now_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
-
-
-def _normalize_error_message(raw_error: Any) -> str | None:
-    if isinstance(raw_error, str):
-        value = raw_error.strip()
-        return value or None
-
-    if isinstance(raw_error, dict):
-        maybe_message = raw_error.get("message")
-        if isinstance(maybe_message, str) and maybe_message.strip():
-            return maybe_message.strip()
-
-    return None
-
-
-def _is_job_timed_out(job_record: dict[str, Any]) -> bool:
-    created_at_raw = job_record.get("created_at")
-    if not isinstance(created_at_raw, str) or not created_at_raw:
-        return False
-
-    timeout_seconds = int(current_app.config.get("JOB_TIMEOUT_SECONDS", 1200))
-    try:
-        created_at = datetime.fromisoformat(created_at_raw)
-    except ValueError:
-        return False
-
-    if created_at.tzinfo is None:
-        created_at = created_at.replace(tzinfo=timezone.utc)
-
-    elapsed_seconds = (datetime.now(timezone.utc) - created_at).total_seconds()
-    return elapsed_seconds > timeout_seconds
-
 
 def ensure_session_id() -> str:
     session_id = session.get("session_id")
@@ -91,7 +52,7 @@ def create_job_record() -> str:
             "status": "queued",
             "progress": 0,
             "result_path": None,
-            "created_at": _now_iso(),
+            "created_at": datetime.now(UTC).isoformat(),
         }
 
     return job_id
@@ -258,7 +219,7 @@ def upload_files():
                 "size": int(validation_result.size_bytes or target_file_path.stat().st_size),
                 "page_count": validation_result.page_count,
                 "mime_type": validation_result.mime_type or "application/pdf",
-                "uploaded_at": _now_iso(),
+                "uploaded_at": datetime.now(UTC).isoformat(),
             },
         )
 
@@ -414,65 +375,14 @@ def get_job_status(job_id: str):
             http_status=404,
         )
 
-    status = str(job_record.get("status") or "queued")
-    if status in {"queued", "running"} and _is_job_timed_out(job_record):
-        timeout_message = "Processing timed out. Please retry the operation."
-        update_job_record(
-            job_id,
-            status="failed",
-            progress=100,
-            error=timeout_message,
-        )
-        logger.warning("job.timed_out", job_id=job_id)
-        job_record = get_job_record(job_id) or job_record
+    result_url = f"/api/v1/jobs/{job_id}/download" if job_record.get("result_path") else None
 
-    status = str(job_record.get("status") or "queued")
-    result_path = Path(str(job_record.get("result_path"))) if job_record.get("result_path") else None
-    has_result_file = bool(result_path and result_path.exists() and result_path.is_file())
-
-    if status == "success" and not has_result_file:
-        missing_message = "Job completed but result file is unavailable."
-        update_job_record(
-            job_id,
-            status="failed",
-            progress=100,
-            result_path=None,
-            error=missing_message,
-        )
-        logger.error(
-            "job.result_missing",
-            job_id=job_id,
-            result_path=str(result_path) if result_path else None,
-        )
-        job_record = get_job_record(job_id) or job_record
-        status = "failed"
-        has_result_file = False
-
-    result_url = f"/api/v1/jobs/{job_id}/download" if status == "success" and has_result_file else None
-
-    response_payload = job_response(
+    return job_response(
         job_id=job_id,
-        status=status,
-        progress=int(job_record.get("progress") or 0),
+        status=str(job_record["status"]),
+        progress=int(job_record["progress"]),
         result_url=result_url,
     )
-
-    error_message = _normalize_error_message(job_record.get("error"))
-    if error_message is not None:
-        response_payload["data"]["error"] = error_message
-
-    passthrough_keys = {
-        "type",
-        "original_size",
-        "compressed_size",
-        "reduction_percent",
-    }
-    for key in passthrough_keys:
-        value = job_record.get(key)
-        if value is not None:
-            response_payload["data"][key] = value
-
-    return response_payload
 
 
 @session_bp.get("/jobs/<job_id>/download")
@@ -508,11 +418,6 @@ def download_job_result(job_id: str):
         )
 
     mime_type, _encoding = mimetypes.guess_type(result_file_path.name)
-    normalized_suffix = result_file_path.suffix.lower()
-    if normalized_suffix == ".pdf":
-        mime_type = "application/pdf"
-    elif normalized_suffix == ".zip":
-        mime_type = "application/zip"
 
     return send_file(
         result_file_path,

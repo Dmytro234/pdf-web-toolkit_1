@@ -126,9 +126,7 @@ export function useSplit(): ToolHookResult<
         ? "pages"
         : options.mode === "byRanges"
           ? "ranges"
-          : options.mode === "each_page"
-            ? "each_page"
-            : "size",
+          : options.mode,
     pages_per_chunk: options.pagesPerFile,
     size_mb: (options as SplitOptions & { sizeMb?: number }).sizeMb,
     ranges: options.ranges ? options.ranges.split(",").map((v) => v.trim()) : undefined
