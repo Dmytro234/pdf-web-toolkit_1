@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import io
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -12,7 +11,11 @@ logger = structlog.get_logger(__name__)
 _THUMBNAIL_EXECUTOR = ThreadPoolExecutor(max_workers=4)
 
 
-def _render_thumbnail(pdf_path: str | Path, page_num: int, size: tuple[int, int]) -> bytes:
+def _render_thumbnail(
+    pdf_path: str | Path,
+    page_num: int,
+    size: tuple[int, int],
+) -> bytes:
     pdf_path = str(pdf_path)
 
     try:
@@ -36,7 +39,14 @@ def _render_thumbnail(pdf_path: str | Path, page_num: int, size: tuple[int, int]
             matrix = fitz.Matrix(zoom, zoom)
             pix = page.get_pixmap(matrix=matrix, alpha=False)
             return pix.tobytes("png")
-    except (fitz.FileDataError, fitz.EmptyFileError, fitz.FileNotFoundError, RuntimeError, ValueError, IndexError) as exc:
+    except (
+        fitz.FileDataError,
+        fitz.EmptyFileError,
+        fitz.FileNotFoundError,
+        RuntimeError,
+        ValueError,
+        IndexError,
+    ) as exc:
         logger.exception(
             "thumbnail.render_failed",
             pdf_path=pdf_path,
@@ -61,7 +71,12 @@ def generate_thumbnail(
     if cache_file is not None and cache_file.exists():
         return cache_file.read_bytes()
 
-    future = _THUMBNAIL_EXECUTOR.submit(_render_thumbnail, pdf_path, page_num, size)
+    future = _THUMBNAIL_EXECUTOR.submit(
+        _render_thumbnail,
+        pdf_path,
+        page_num,
+        size,
+    )
     png_bytes = future.result()
 
     if cache_file is not None:
@@ -77,7 +92,9 @@ def generate_thumbnail(
     return png_bytes
 
 
-def generate_all_thumbnails(pdf_path: str | Path) -> list[bytes]:
+def generate_all_thumbnails(
+    pdf_path: str | Path,
+) -> list[bytes]:
     """
     Generate PNG thumbnails for all pages in a PDF.
     """
@@ -88,7 +105,13 @@ def generate_all_thumbnails(pdf_path: str | Path) -> list[bytes]:
                 raise ValueError("Encrypted PDF cannot be thumbnailed.")
 
             page_count = doc.page_count
-    except (fitz.FileDataError, fitz.EmptyFileError, fitz.FileNotFoundError, RuntimeError, ValueError) as exc:
+    except (
+        fitz.FileDataError,
+        fitz.EmptyFileError,
+        fitz.FileNotFoundError,
+        RuntimeError,
+        ValueError,
+    ) as exc:
         logger.exception(
             "thumbnail.generate_all_failed_open",
             pdf_path=str(pdf_path),
@@ -98,7 +121,13 @@ def generate_all_thumbnails(pdf_path: str | Path) -> list[bytes]:
         raise
 
     futures = [
-        _THUMBNAIL_EXECUTOR.submit(generate_thumbnail, pdf_path, page_index, (150, 200), None)
+        _THUMBNAIL_EXECUTOR.submit(
+            generate_thumbnail,
+            pdf_path,
+            page_index,
+            (150, 200),
+            None,
+        )
         for page_index in range(page_count)
     ]
     results = [future.result() for future in futures]

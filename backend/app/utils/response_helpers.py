@@ -17,7 +17,10 @@ class ErrorCode(str, Enum):
     JOB_EXPIRED = "JOB_EXPIRED"
 
 
-def success_response(data: Any, meta: dict[str, Any] | None = None) -> dict[str, Any]:
+def success_response(
+    data: Any,
+    meta: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """
     Create standard success response payload.
     """
