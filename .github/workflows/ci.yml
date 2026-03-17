@@ -67,7 +67,14 @@ jobs:
         run: npx tsc --noEmit
 
       - name: Run frontend tests
-        run: npx vitest run
+        run: |
+          if find . -type f \( -name "*.test.*" -o -name "*.spec.*" \) \
+            -not -path "./node_modules/*" \
+            -not -path "./dist/*" | grep -q .; then
+            npx vitest run
+          else
+            echo "No frontend test files found, skipping Vitest."
+          fi
 
   build-docker:
     if: github.ref == 'refs/heads/main'
