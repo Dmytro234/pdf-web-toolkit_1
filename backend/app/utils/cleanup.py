@@ -16,7 +16,9 @@ class CleanupManager:
     """
 
     def __init__(self, temp_dir: str | Path | None = None) -> None:
-        self.temp_dir = Path(temp_dir or current_app.config["TEMP_DIR"]).resolve()
+        self.temp_dir = Path(
+            temp_dir or current_app.config["TEMP_DIR"]
+        ).resolve()
         self.sessions_root = self.temp_dir / "sessions"
         self.jobs_root = self.temp_dir / "jobs"
 
@@ -39,12 +41,17 @@ class CleanupManager:
                 continue
 
             try:
-                modified_at = datetime.fromtimestamp(session_dir.stat().st_mtime, tz=UTC)
+                modified_at = datetime.fromtimestamp(
+                    session_dir.stat().st_mtime,
+                    tz=UTC,
+                )
                 if modified_at >= threshold:
                     continue
 
                 dir_size = self._get_dir_size(session_dir)
-                file_count = sum(1 for item in session_dir.rglob("*") if item.is_file())
+                file_count = sum(
+                    1 for item in session_dir.rglob("*") if item.is_file()
+                )
 
                 shutil.rmtree(session_dir, ignore_errors=False)
 
@@ -102,7 +109,11 @@ class CleanupManager:
         if not self.temp_dir.exists():
             return 0
         size = self._get_dir_size(self.temp_dir)
-        logger.info("cleanup.temp_dir_size", size_bytes=size, path=str(self.temp_dir))
+        logger.info(
+            "cleanup.temp_dir_size",
+            size_bytes=size,
+            path=str(self.temp_dir),
+        )
         return size
 
     def _get_dir_size(self, directory: Path) -> int:

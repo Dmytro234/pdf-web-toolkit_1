@@ -97,7 +97,9 @@ def validate_pdf(file_storage: FileStorage) -> ValidationResult:
         detected_mime_type = detect_mime_type(file_storage)
         file_size_bytes = get_file_size_bytes(file_storage)
 
-        maximum_file_size_megabytes = int(current_app.config.get("MAX_FILE_SIZE_MB", 50))
+        maximum_file_size_megabytes = int(
+            current_app.config.get("MAX_FILE_SIZE_MB", 50)
+        )
         maximum_file_size_bytes = maximum_file_size_megabytes * 1024 * 1024
 
         if file_size_bytes <= 0:
@@ -202,7 +204,9 @@ def validate_image(file_storage: FileStorage) -> ValidationResult:
         detected_mime_type = detect_mime_type(file_storage)
         file_size_bytes = get_file_size_bytes(file_storage)
 
-        maximum_file_size_megabytes = int(current_app.config.get("MAX_FILE_SIZE_MB", 50))
+        maximum_file_size_megabytes = int(
+            current_app.config.get("MAX_FILE_SIZE_MB", 50)
+        )
         maximum_file_size_bytes = maximum_file_size_megabytes * 1024 * 1024
 
         if file_size_bytes <= 0:

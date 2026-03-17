@@ -45,13 +45,25 @@ class SessionManager:
         session_dir = self.sessions_root / session_id
         (session_dir / "files").mkdir(parents=True, exist_ok=True)
         (session_dir / "thumbnails").mkdir(parents=True, exist_ok=True)
-        self._metadata_file(session_id).parent.mkdir(parents=True, exist_ok=True)
+        self._metadata_file(session_id).parent.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
         if not self._metadata_file(session_id).exists():
             self._write_metadata(session_id, {})
-        logger.info("session.dir_created", session_id=session_id, path=str(session_dir))
+        logger.info(
+            "session.dir_created",
+            session_id=session_id,
+            path=str(session_dir),
+        )
         return session_dir
 
-    def register_file(self, session_id: str, file_id: str, metadata: dict[str, Any]) -> FileRecord:
+    def register_file(
+        self,
+        session_id: str,
+        file_id: str,
+        metadata: dict[str, Any],
+    ) -> FileRecord:
         """
         Register file metadata in the session index.
         """
@@ -63,9 +75,15 @@ class SessionManager:
             original_name=str(metadata["original_name"]),
             path=str(Path(metadata["path"]).resolve()),
             size=int(metadata["size"]),
-            page_count=int(metadata["page_count"]) if metadata.get("page_count") is not None else None,
+            page_count=(
+                int(metadata["page_count"])
+                if metadata.get("page_count") is not None
+                else None
+            ),
             mime_type=str(metadata["mime_type"]),
-            uploaded_at=str(metadata.get("uploaded_at") or datetime.now(UTC).isoformat()),
+            uploaded_at=str(
+                metadata.get("uploaded_at") or datetime.now(UTC).isoformat()
+            ),
         )
         stored[file_id] = asdict(record)
         self._write_metadata(session_id, stored)
@@ -146,7 +164,11 @@ class SessionManager:
         stored.pop(file_id, None)
         self._write_metadata(session_id, stored)
 
-        logger.info("session.file_deleted", session_id=session_id, file_id=file_id)
+        logger.info(
+            "session.file_deleted",
+            session_id=session_id,
+            file_id=file_id,
+        )
         return deleted_any or True
 
     def get_session_size(self, session_id: str) -> int:
@@ -162,13 +184,18 @@ class SessionManager:
         """
         Check whether session is within configured quota constraints.
         """
-        max_session_size_bytes = int(current_app.config["MAX_SESSION_SIZE_MB"]) * 1024 * 1024
+        max_session_size_bytes = (
+            int(current_app.config["MAX_SESSION_SIZE_MB"]) * 1024 * 1024
+        )
         max_files = int(current_app.config["MAX_FILES_PER_SESSION"])
 
         files = self.list_files(session_id)
         current_size = sum(item.size for item in files)
 
-        within_quota = len(files) <= max_files and current_size <= max_session_size_bytes
+        within_quota = (
+            len(files) <= max_files
+            and current_size <= max_session_size_bytes
+        )
         logger.info(
             "session.quota_checked",
             session_id=session_id,
@@ -215,7 +242,11 @@ class SessionManager:
             )
             return {}
 
-    def _write_metadata(self, session_id: str, payload: dict[str, dict[str, Any]]) -> None:
+    def _write_metadata(
+        self,
+        session_id: str,
+        payload: dict[str, dict[str, Any]],
+    ) -> None:
         metadata_file = self._metadata_file(session_id)
         metadata_file.parent.mkdir(parents=True, exist_ok=True)
         metadata_file.write_text(
