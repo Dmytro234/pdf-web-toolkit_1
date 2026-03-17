@@ -5,7 +5,7 @@ import threading
 import uuid
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -31,6 +31,10 @@ thumbnail_executor = ThreadPoolExecutor(max_workers=4)
 jobs_lock = threading.Lock()
 jobs_registry: dict[str, dict[str, Any]] = {}
 
+# Backward-compatible aliases for other route modules.
+_JOBS_LOCK = jobs_lock
+_JOBS = jobs_registry
+
 
 def ensure_session_id() -> str:
     session_id = session.get("session_id")
@@ -52,7 +56,7 @@ def create_job_record() -> str:
             "status": "queued",
             "progress": 0,
             "result_path": None,
-            "created_at": datetime.now(UTC).isoformat(),
+            "created_at": datetime.now(timezone.utc).isoformat(),
         }
 
     return job_id
@@ -219,7 +223,7 @@ def upload_files():
                 "size": int(validation_result.size_bytes or target_file_path.stat().st_size),
                 "page_count": validation_result.page_count,
                 "mime_type": validation_result.mime_type or "application/pdf",
-                "uploaded_at": datetime.now(UTC).isoformat(),
+                "uploaded_at": datetime.now(timezone.utc).isoformat(),
             },
         )
 
