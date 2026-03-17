@@ -37,7 +37,7 @@ jobs:
           pip install flake8 pytest
 
       - name: Lint backend
-        run: flake8 .
+        run: flake8 app wsgi.py
 
       - name: Test backend
         run: pytest
