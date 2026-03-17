@@ -70,7 +70,7 @@ export class ApiClient {
     this.instance = axios.create({
       baseURL,
       withCredentials: true,
-      timeout: 60_000
+      timeout: 120_000
     });
 
     this.instance.interceptors.response.use(

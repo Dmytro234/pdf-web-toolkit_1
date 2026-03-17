@@ -11,6 +11,10 @@ type JobStatusApi = {
   status?: string;
   progress?: number;
   result_url?: string | null;
+  error?: string | { message?: string } | null;
+  original_size?: number;
+  compressed_size?: number;
+  reduction_percent?: number;
 };
 
 type PollingCompletePayload = {
@@ -43,13 +47,24 @@ function normalizeJobStatus(jobId: string, data: JobStatusApi): JobStatus {
     jobId,
     state: normalizeState(data.status),
     progress: typeof data.progress === "number" ? data.progress : 0,
-    message: typeof data.status === "string" ? data.status : undefined
+    message:
+      typeof data.error === "string"
+        ? data.error
+        : typeof data.error?.message === "string"
+          ? data.error.message
+          : typeof data.status === "string"
+            ? data.status
+            : undefined,
+    originalSize: typeof data.original_size === "number" ? data.original_size : undefined,
+    compressedSize: typeof data.compressed_size === "number" ? data.compressed_size : undefined,
+    reductionPercent: typeof data.reduction_percent === "number" ? data.reduction_percent : undefined
   };
 }
 
 export function useJob() {
   const timerIdReference = useRef<number | null>(null);
   const pollingStartedAtReference = useRef<number>(0);
+  const pollingGenerationReference = useRef<number>(0);
 
   const setJob = useToolStore((state) => state.setJob);
   const updateJobStatus = useToolStore((state) => state.updateJobStatus);
@@ -69,9 +84,14 @@ export function useJob() {
     ) => {
       stopPolling();
       pollingStartedAtReference.current = Date.now();
+      pollingGenerationReference.current += 1;
+      const generation = pollingGenerationReference.current;
       setJob(jobId, true);
 
       const tick = async () => {
+        if (generation !== pollingGenerationReference.current) {
+          return;
+        }
         try {
           if (Date.now() - pollingStartedAtReference.current > timeoutMilliseconds) {
             stopPolling();
@@ -118,7 +138,8 @@ export function useJob() {
           if (normalizedJobStatus.state === "failed") {
             stopPolling();
 
-            const message = response.error?.message ?? "Обробка завершилась з помилкою";
+            const message =
+              normalizedJobStatus.message ?? response.error?.message ?? "Обробка завершилась з помилкою";
             onError?.(message);
             toast.error(message);
             return;
